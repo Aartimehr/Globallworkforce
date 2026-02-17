@@ -17,7 +17,12 @@ export default function CurrentOpenings() {
     "/current-openings/image10.jpeg",
     "/current-openings/image11.jpeg",
     "/current-openings/image12.jpeg",
-    "/current-openings/image13.jpeg"
+    "/current-openings/image13.jpeg",
+    "/current-openings/image14.jpeg",
+    "/current-openings/image15.jpeg",
+    "/current-openings/image16.jpeg",
+    "/current-openings/image17.jpeg",
+    "/current-openings/image18.jpeg",
   ];
 
   return (

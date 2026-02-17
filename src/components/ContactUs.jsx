@@ -33,7 +33,7 @@ export default function ContactUs() {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      // UPDATED: Changed from http://localhost:5000 to relative path for Vercel
+      
       const response = await fetch("/api/contact-submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

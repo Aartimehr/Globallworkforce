@@ -34,8 +34,7 @@ export default function CandidateForm() {
     if (!validateForm()) return;
 
     try {
-      // UPDATED: Changed from http://localhost:5000/api/submit to a relative path
-      // This allows Vercel to handle the routing automatically.
+      
       const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

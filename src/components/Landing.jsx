@@ -38,8 +38,7 @@ export default function Landing() {
     {
       title: "Kitchen Worker",
       country: "Czech Republic",
-      salary: "25000 CZK / month (During Internship)",
-      salary: "40000 CZK / month (After Internship)",
+      salary: "25000 CZK / month (During Internship)"|"40000 CZK / month (After Internship)",
       hours: "8–10 hrs/day | 5 days a week",
       age: "20–55 Years",
       benefits: ["Accommodation and Transportation provided by the company"],
@@ -49,8 +48,7 @@ export default function Landing() {
     {
       title: "Construction Worker",
       country: "Czech Republic",
-      salary: "25000 CZK / month (During Internship)",
-      salary: "40000 CZK / month (After Internship)",
+      salary: "25000 CZK / month (During Internship)"|"40000 CZK / month (After Internship)",
       hours: "8–10 hrs/day | 5 days a week",
       age: "20–55 Years",
       benefits: ["Accommodation and Transportation provided by the company"],
@@ -60,8 +58,7 @@ export default function Landing() {
     {
       title: "Production Worker",
       country: "Czech Republic",
-      salary: "25000 CZK / month (During Internship)",
-      salary: "40000 CZK / month (After Internship)",
+      salary: "25000 CZK / month (During Internship)"|"40000 CZK / month (After Internship)",
       hours: "8–10 hrs/day | 5 days a week",
       age: "20–55 Years",
       benefits: ["Accommodation and Transportation provided by the company"],
@@ -71,8 +68,7 @@ export default function Landing() {
      {
       title: "Cleaning Worker",
       country: "Czech Republic",
-      salary: "25000 CZK / month (During Internship)",
-      salary: "40000 CZK / month (After Internship)",
+      salary: "25000 CZK / month (During Internship)"|"40000 CZK / month (After Internship)",
       hours: "8–10 hrs/day | 5 days a week",
       age: "20–55 Years",
       benefits: ["Accommodation and Transportation provided by the company"],
@@ -82,8 +78,7 @@ export default function Landing() {
     {
       title: "Driver",
       country: "Czech Republic",
-      salary: "25000 CZK / month (During Internship)",
-      salary: "40000 CZK / month (After Internship)",
+      salary: "25000 CZK / month (During Internship)"|"40000 CZK / month (After Internship)",
       hours: "8–10 hrs/day | 5 days a week",
       age: "20–55 Years",
       benefits: ["Accommodation and Transportation provided by the company"],
@@ -415,6 +410,12 @@ export default function Landing() {
                 >
                   Apply Now
                 </button>
+                
+<Link to="/current-openings">
+  <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded ml-4">
+    Know More
+  </button>
+</Link>
               </motion.div>
             ))}
           </motion.div>

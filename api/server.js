@@ -100,4 +100,4 @@ if (process.env.NODE_ENV !== 'production') {
   );
 }
 
-export default app; // This allows Vercel to use the app
+module.exports = app; 
