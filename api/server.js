@@ -11,14 +11,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ MySQL Connection Pool
+// ✅ MySQL Connection Pool (Configured for Aiven + Vercel)
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
-  ssl: { rejectUnauthorized: true } 
+  // Changed to false so Aiven connects without needing a physical .pem certificate file
+  ssl: { rejectUnauthorized: false } 
 });
 
 // ==============================
@@ -28,27 +29,28 @@ app.post("/api/submit", async (req, res) => {
   try {
     const { name, email, phone, designation, country } = req.body;
 
+    // Table name updated to 'candidateform' to match your SQL
     const query = `
-      INSERT INTO candidate_leads 
+      INSERT INTO candidateform 
       (fullName, email, phoneNumber, designation, country)
       VALUES (?, ?, ?, ?, ?)
     `;
 
-    // FIX: Changed 'pool' to 'db' to match your constant name
     await db.execute(query, [
-      name,
-      email,
-      phone,
-      designation,
-      country,
+      name,         // Maps to fullName
+      email,        // Maps to email
+      phone,        // Maps to phoneNumber
+      designation,  // Maps to designation
+      country,      // Maps to country
     ]);
 
-    res.status(200).json({ status: "success" });
+    res.status(200).json({ status: "success", message: "Candidate data saved" });
   } catch (error) {
     console.error("Candidate Submit Error:", error);
     res.status(500).json({
       status: "error",
-      message: "Failed to submit candidate data",
+      message: "Database connection failed",
+      details: error.message
     });
   }
 });
@@ -60,13 +62,13 @@ app.post("/api/contact-submit", async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
 
+    // Table name updated to 'contactus' and column names set to lowercase to match SQL
     const query = `
-      INSERT INTO contact_us 
-      (fname, email, PhoneNumber, Message)
+      INSERT INTO contactus 
+      (name, email, phone, message)
       VALUES (?, ?, ?, ?)
     `;
 
-    // FIX: Changed 'pool' to 'db'
     await db.execute(query, [
       name || null,
       email || null,
@@ -74,30 +76,32 @@ app.post("/api/contact-submit", async (req, res) => {
       message || null,
     ]);
 
-    res.status(200).json({ status: "success" });
+    res.status(200).json({ status: "success", message: "Message sent" });
   } catch (error) {
     console.error("Contact Submit Error:", error);
     res.status(500).json({
       status: "error",
-      message: "Failed to submit contact form",
+      message: "Database connection failed",
+      details: error.message
     });
   }
 });
 
-app.get("/health", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.json({ status: "Backend is running 🚀" });
 });
 
 // ==============================
-// Export for Vercel (CRITICAL)
+// Export for Vercel
 // ==============================
 const PORT = process.env.PORT || 5000;
 
-// Only listen if not running as a Vercel Function
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () =>
-    console.log(`✅ Backend running on port ${PORT}`)
+    console.log(`✅ Local Server running on port ${PORT}`)
   );
 }
 
-module.exports = app; 
+// Since you are using "import", Vercel prefers "export default" 
+// if your package.json has "type": "module"
+export default app;
